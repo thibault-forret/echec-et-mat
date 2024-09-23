@@ -1,5 +1,5 @@
-### Projects2024
-Projets des étudiants en BUT Info 2024-2025
+### Echec et math
+Projet Qualité de Dev
 
 ### Membre du projet
 Forret Thibault
