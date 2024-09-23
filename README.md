@@ -9,17 +9,8 @@ Chaque jour de retard entrainera une pénalité.
 
 ## Introduction : 
 
-Vous êtes chargé de travailler en groupe sur un projet de développement de jeux. Les jeux disponibles pour le projet sont :
--	Pac-Man
--	Space Invaders (ou autre Shoot ‘Em Up)
--	Jeu de Dame (ou jeu d'échec)
--	Pong
--	Morpion 
--	Puissance 4
--	Othello
--	Autres petits jeux simples
-
-Chaque groupe, composé de 3 à 4 étudiants, devra choisir l'un de ces jeux, développer le code en respectant les normes de codage, rédiger un cahier des charges, un plan de test et une documentation technique complète, effectuer des tests unitaires avec un framework de test, pousser le code sur GitHub et effectuer une revue de code sur les pull-request.
+Nous avons choisis le projet suivant :
+-	Jeu d'échec
 
 ## Tâches à Réaliser :
 
@@ -40,7 +31,6 @@ Chaque groupe, composé de 3 à 4 étudiants, devra choisir l'un de ces jeux, d�
 Faites en un fork et poussez régulièrement le code source, la documentation, le plan de test et les tests unitaires. N’hésitez pas à faire de multiples Pull-Request.
 #### 7.	Revue de Code :
 -	Effectuez une revue de code en utilisant les pull-request sur GitHub pour examiner le code de vos collègues et fournir des commentaires constructifs.
-
 
 
 ## Éléments de Notation (4 Notes) :
