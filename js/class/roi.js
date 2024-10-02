@@ -4,7 +4,7 @@ class King extends Pieces {
         this.emplacement = emplacement;
     }
 
-
+    // Déplacements du roi : 1 case dans toutes les directions
     checkMove()
     {
         const [row, col] = this.emplacement;
