@@ -1,15 +1,21 @@
-export default class Chessboard {
-    constructor() {
+export default class Chessboard 
+{
+    constructor() 
+    {
         this.board = this.createBoard(); // Crée un tableau 2D pour le plateau
         // this.setupPieces(); // Initialise les pièces sur le plateau
         this.generateChessBoard();
     }
 
-    createBoard() {
+    // Fonction pour créer un tableau 2D vide représentant le plateau d'échecs
+    createBoard() 
+    {
         return Array.from({ length: 8 }, () => Array(8).fill(null)); // Crée un plateau vide 8x8
     }
 
-    setupPieces() {
+    // Fonction pour configurer les pièces initiales sur le plateau
+    setupPieces() 
+    {
         // Placer les pièces noires
         this.board[0][0] = new Rook("black");
         this.board[0][1] = new Knight("black");
@@ -37,16 +43,19 @@ export default class Chessboard {
         }
     }
 
-    generateChessBoard() {
+    // Fonction pour générer visuellement le plateau d'échecs dans le DOM
+    generateChessBoard() 
+    {
         const chessboard = document.querySelector('.chessboard');
 
+        // Boucle à travers chaque rangée et colonne du plateau
         for (let row = 0; row < 8; row++) {
             for (let col = 0; col < 8; col++) {
                 const square = document.createElement('div');
                 square.classList.add('square');
                 square.classList.add((row + col) % 2 === 0 ? 'white' : 'black');
 
-                // Ajouter la position de la case
+                // Ajoute des attributs de données pour stocker les coordonnées de la case
                 square.dataset.row = row;
                 square.dataset.col = col;
 
