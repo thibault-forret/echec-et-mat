@@ -7,4 +7,10 @@ class Pieces{
         this.color = color;//couleur de la pièce
         this.type = type;//type de la pièce(rois, reine, ect...)
     }
+
+
+    move (newEmplacement){
+        this.emplacement=newEmplacement;
+    }
+
 }

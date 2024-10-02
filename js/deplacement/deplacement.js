@@ -1,22 +1,3 @@
-// Méthode pour calculer les déplacements en fonction du tcolpe
-calculatemoves(board); {
-    switch (this.tcolpe) {
-        case 'roi':
-            return this.moveRoi(board);
-        case 'reine':
-            return this.moveReine(board);
-        case 'tour':
-            return this.moveTour(board);
-        case 'fou':
-            return this.moveFou(board);
-        case 'cavalier':
-            return this.moveCavalier(board);
-        case 'pion':
-            return this.movePion(board);
-        default:
-            return [];
-    }
-}
 
 // Déplacements du roi : 1 case dans toutes les directions
 moveRoi(board); {
@@ -93,5 +74,5 @@ movePion(board); {
 
 // Filtrer les mouvements pour rester dans les limites du plateau
 filterValidMoves(moves, board); {
-    return moves.filter(([row, col]) => row >= 0 && row < 8 && col >= 0 && col < 8);
+    return 
 }
