@@ -1,4 +1,4 @@
-class pieces{
+class Pieces{
     
     constructor(image,color,type){
         this.emplacement = [];//emplacement de la  pièces
