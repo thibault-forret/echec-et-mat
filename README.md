@@ -60,3 +60,5 @@ Faites en un fork et poussez régulièrement le code source, la documentation, l
 -	Je ne noterai pas en fonctions du jeu / de la difficulté choisie mais sur la qualité de code et les commentaires.
 -	Le langage de programmation étant au choix, je dois comprendre votre code avec les commentaires et la documentation technique.
 
+## Cahier des Charges :
+https://docs.google.com/document/d/1HJ2D3tfftFTtnw1XUSCpIWZNjZ0fkv8qs_a_7xn_MfQ/edit?usp=sharing
