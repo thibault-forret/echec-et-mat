@@ -1,4 +1,4 @@
-### Echec et math
+### Echec et mat
 Projet Qualité de Dev
 
 ### Membre du projet
