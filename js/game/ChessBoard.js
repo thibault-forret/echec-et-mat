@@ -69,6 +69,17 @@ export default class Chessboard
                 square.dataset.row = row;
                 square.dataset.col = col;
 
+                const piece = this.board[row][col];
+
+                // faire apparaitre les pièces
+                if (piece) {
+                    const pieceImage = document.createElement('img');
+                    pieceImage.src = piece.image; 
+                    pieceImage.alt = piece.type; 
+                    pieceImage.classList.add('piece'); 
+                    square.appendChild(pieceImage); 
+                }
+
                 chessboard.appendChild(square);
             }
         }

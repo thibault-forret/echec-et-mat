@@ -19,10 +19,17 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 32px;
+    position:relative;
 }
 .white {
     background-color: #fff;
 }
 .black {
     background-color: #888;
+}
+
+.piece {
+    position: absolute;
+    height: 90%;
+    width: 90%;
 }
