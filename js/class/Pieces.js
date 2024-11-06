@@ -21,9 +21,37 @@ export default class Pieces
     filterValidMoves(moves, board) 
     {
         // Vérifier si y a un joueur
-        console.log(moves);
+        const validMoves = moves.filter(move => {
+            const row = move[0];
+            const col = move[1];
 
-        return moves
+            // Vérifie si la case est en dehors du tableau
+            if(row > 7 || col > 7 || row < 0 || col < 0)
+            {
+                return false;
+            }
+
+            // Vérifie si la case de destination est vide (null) dans le plateau
+            if(board[row][col] != null)
+            {
+                // Vérifie si la case est un pion de sa couleur
+                if(board[row][col].color != this.color)
+                {
+                    return true;
+                }
+                else {
+                    return false
+                }
+            }
+            else 
+            {
+                return board[row][col] === null;
+            }        
+        });
+
+        console.log(validMoves);
+
+        return validMoves;
     }
 
 }

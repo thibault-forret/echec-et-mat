@@ -100,6 +100,11 @@ export default class Chessboard
             originSquare.removeChild(originPieceImage);
         }
 
+        const targetPieceImage = targetSquare.querySelector('.piece');
+        if (targetPieceImage) {
+            targetSquare.removeChild(targetPieceImage);
+        }
+
         // Ajoute l'image de la pièce à la case de destination
         const pieceImage = document.createElement('img');
         pieceImage.src = piece.image;
