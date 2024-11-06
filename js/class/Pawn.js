@@ -9,18 +9,23 @@ export default  class Pawn extends Pieces
     }
 
     // Déplacements du pion : en fonction de la couleur, une case vers le haut ou le bas
-    checkMove()
+    checkMove(board)
     {
         const [row, col] = this.emplacement;
         const moves = [];
 
-       // Déplacement de base du pion (blanc ou noir)
-        if (this.color === 'blanc') {
-            moves.push([row, col + 1]); // avancer d'une case
-            if (col === 1) moves.push([row, col + 2]); // avancer de deux cases si au point de départ
+        // Déplacement de base du pion (blanc ou noir)
+        if (this.color === 'black') {
+            moves.push([row + 1, col]); // avancer d'une case
+            if (row === 1) {
+                moves.push([row + 2, col]); // avancer de deux cases si au point de départ
+            }
+            
         } else {
-            moves.push([row, col - 1]);
-            if (col === 6) moves.push([row, col - 2]);
+            moves.push([row - 1, col]);
+            if (row === 6) {
+                moves.push([row - 2, col]);
+            }
         }
 
         return this.filterValidMoves(moves, board);
