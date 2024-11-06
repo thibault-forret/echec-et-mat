@@ -1,13 +1,16 @@
 import Pieces from './Pieces.js';
 
-export default  class Rook extends Pieces {     
-    constructor(imgRook ,emplacement, color) {
+export default  class Rook extends Pieces 
+{     
+    constructor(imgRook ,emplacement, color) 
+    {
         super(imgRook, color, "Rook");
         this.emplacement = emplacement;
     }
 
     // Déplacements de la tour : uniquement sur les lignes et colonnes
-    checkMove(){
+    checkMove()
+    {
         const [row, col] = this.emplacement;
         const moves = [];
 

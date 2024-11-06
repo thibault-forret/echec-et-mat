@@ -1,13 +1,16 @@
 import Pieces from './Pieces.js';
 
-export default class Queen extends Pieces {     
-    constructor(imgQueen ,emplacement, color) {
+export default class Queen extends Pieces 
+{     
+    constructor(imgQueen ,emplacement, color) 
+    {
         super(imgQueen, color, "Queen");
         this.emplacement = emplacement;
     }
 
     // Déplacements de la reine : toutes les cases dans toutes les directions
-    checkMove(){
+    checkMove()
+    {
         const [row, col] = this.emplacement;
         const moves = [];
 

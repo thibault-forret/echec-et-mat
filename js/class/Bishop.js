@@ -1,13 +1,16 @@
 import Pieces from './Pieces.js';
 
-export default class Bishop extends Pieces {     
-    constructor(imgBishop ,emplacement, color) {
+export default class Bishop extends Pieces 
+{     
+    constructor(imgBishop ,emplacement, color) 
+    {
         super(imgBishop, color, "Bishop");
         this.emplacement = emplacement;
     }
 
     // Déplacements du fou : uniquement en diagonale
-    checkMove(){
+    checkMove()
+    {
         const [row, col] = this.emplacement;
         const moves = [];
 

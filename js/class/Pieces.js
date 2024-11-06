@@ -1,6 +1,7 @@
-export default class Pieces{
-    
-    constructor(image,color,type){
+export default class Pieces
+{  
+    constructor(image,color,type)
+    {
         this.emplacement = [];//emplacement de la  pièces
         this.deplacements=[];//deplacements des pièces en fonction de leur emplacement
         this.image = image;//image de la pièce
@@ -9,7 +10,8 @@ export default class Pieces{
     }
 
 
-    move (newEmplacement){
+    move (newEmplacement)
+    {
         this.emplacement=newEmplacement;
     }
 

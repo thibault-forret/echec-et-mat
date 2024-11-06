@@ -1,13 +1,16 @@
 import Pieces from './Pieces.js';
 
-export default  class Pawn extends Pieces {     
-    constructor(imgPawn ,emplacement, color) {
+export default  class Pawn extends Pieces 
+{     
+    constructor(imgPawn ,emplacement, color) 
+    {
         super(imgPawn, color, "Pawn");
         this.emplacement = emplacement;
     }
 
-// Déplacements du pion : en fonction de la couleur, une case vers le haut ou le bas
-checkMove(){
+    // Déplacements du pion : en fonction de la couleur, une case vers le haut ou le bas
+    checkMove()
+    {
         const [row, col] = this.emplacement;
         const moves = [];
 
