@@ -1,4 +1,6 @@
-class King extends Pieces {     
+import Pieces from './Pieces.js';
+
+export default class King extends Pieces {     
     constructor(imgKing ,emplacement, color) {
         super(imgKing, color, "King");
         this.emplacement = emplacement;

@@ -1,4 +1,6 @@
-class Pawn extends Pieces {     
+import Pieces from './Pieces.js';
+
+export default  class Pawn extends Pieces {     
     constructor(imgPawn ,emplacement, color) {
         super(imgPawn, color, "Pawn");
         this.emplacement = emplacement;

@@ -1,4 +1,6 @@
-class Rook extends Pieces {     
+import Pieces from './Pieces.js';
+
+export default  class Rook extends Pieces {     
     constructor(imgRook ,emplacement, color) {
         super(imgRook, color, "Rook");
         this.emplacement = emplacement;

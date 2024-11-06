@@ -73,6 +73,8 @@ movePion(board); {
 }
 
 // Filtrer les mouvements pour rester dans les limites du plateau
+// ne pas aller sur la case d'un pion de sa couleur
+// ne pas aller au dela d'un pion d'une autre couleur
 filterValidMoves(moves, board); {
     return 
 }
