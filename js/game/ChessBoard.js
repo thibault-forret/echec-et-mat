@@ -84,4 +84,32 @@ export default class Chessboard
             }
         }
     }
+
+
+    movePiece(row, col, newRow, newCol)
+    {
+        const piece = this.board[row][col];
+
+        // Récupère l'élément DOM pour la case de destination
+        const targetSquare = document.querySelector(`.square[data-row="${newRow}"][data-col="${newCol}"]`);
+
+        // Supprime l'image de la case d'origine
+        const originSquare = document.querySelector(`.square[data-row="${row}"][data-col="${col}"]`);
+        const originPieceImage = originSquare.querySelector('.piece');
+        if (originPieceImage) {
+            originSquare.removeChild(originPieceImage);
+        }
+
+        // Ajoute l'image de la pièce à la case de destination
+        const pieceImage = document.createElement('img');
+        pieceImage.src = piece.image;
+        pieceImage.alt = piece.type;
+        pieceImage.classList.add('piece');
+        targetSquare.appendChild(pieceImage);
+
+        // Met à jour le plateau de jeu (array) pour refléter le déplacement
+        piece.emplacement = [newRow, newCol];
+        this.board[newRow][newCol] = piece;
+        this.board[row][col] = null; // Vide la case d'origine
+    }
 }
