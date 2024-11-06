@@ -9,7 +9,7 @@ export default  class Rook extends Pieces
     }
 
     // Déplacements de la tour : uniquement sur les lignes et colonnes
-    checkMove()
+    checkMove(board)
     {
         const [row, col] = this.emplacement;
         const moves = [];

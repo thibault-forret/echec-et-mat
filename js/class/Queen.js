@@ -9,7 +9,7 @@ export default class Queen extends Pieces
     }
 
     // Déplacements de la reine : toutes les cases dans toutes les directions
-    checkMove()
+    checkMove(board)
     {
         const [row, col] = this.emplacement;
         const moves = [];

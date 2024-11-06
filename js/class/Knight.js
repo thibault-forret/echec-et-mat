@@ -9,7 +9,7 @@ export default class Knight extends Pieces
     }
 
     // Déplacement en L
-    checkMove()
+    checkMove(board)
     {
         const [row, col] = this.emplacement;
         const moves = [

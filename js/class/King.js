@@ -9,7 +9,7 @@ export default class King extends Pieces
     }
 
     // Déplacements du roi : 1 case dans toutes les directions
-    checkMove()
+    checkMove(board)
     {
         const [row, col] = this.emplacement;
         const moves = [
@@ -18,6 +18,8 @@ export default class King extends Pieces
             [row + 1, col + 1], [row - 1, col - 1],
             [row + 1, col - 1], [row - 1, col + 1]
         ];
+
+        // Modifier et utiliser filterValidMove
         return moves.filter(([row, col]) => row >= 0 && row < 8 && col >= 0 && col < 8);
     }
 

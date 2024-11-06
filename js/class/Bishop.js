@@ -9,7 +9,7 @@ export default class Bishop extends Pieces
     }
 
     // Déplacements du fou : uniquement en diagonale
-    checkMove()
+    checkMove(board)
     {
         const [row, col] = this.emplacement;
         const moves = [];
