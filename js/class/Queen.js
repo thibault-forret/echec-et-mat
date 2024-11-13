@@ -7,9 +7,9 @@ export default class Queen extends Pieces
         super(imgQueen, color, "Queen");
         this.emplacement = emplacement;
         this.directions = [
-            [1, 0], [-1, 0], [0, 1], [0, -1],   // Lignes et colonnes
-            [1, 1], [-1, -1], [1, -1], [-1, 1]   // Diagonales
+            [1, 0], [-1, 0], [0, 1], [0, -1],   
+            [1, 1], [-1, -1], [1, -1], [-1, 1]   
         ];
-        this.maxSteps = 8; // La Reine peut se déplacer sur toute la longueur du plateau
+        this.maxSteps = 8; 
     }
 }
