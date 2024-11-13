@@ -7,6 +7,8 @@ export default class Pieces
         this.image = image;//image de la pièce
         this.color = color;//couleur de la pièce
         this.type = type;//type de la pièce(rois, reine, ect...)
+        this.directions = []; // À remplir par chaque pièce
+        this.maxSteps = 0;    // Nombre maximal de cases à parcourir (selon la pièce)
     }
 
 
@@ -15,43 +17,45 @@ export default class Pieces
         this.emplacement=newEmplacement;
     }
 
-    // Filtrer les mouvements pour rester dans les limites du plateau
-    // ne pas aller sur la case d'un pion de sa couleur
-    // ne pas aller au dela d'un pion d'une autre couleur
-    filterValidMoves(moves, board) 
-    {
-        // Vérifier si y a un joueur
-        const validMoves = moves.filter(move => {
-            const row = move[0];
-            const col = move[1];
+    // Méthode générique de déplacement
+    checkMove(board) {
+        const [row, col] = this.emplacement;
+        const moves = [];
 
-            // Vérifie si la case est en dehors du tableau
-            if(row > 7 || col > 7 || row < 0 || col < 0)
-            {
-                return false;
-            }
+        // Parcours toutes les directions possibles
+        for (const [dx, dy] of this.directions) {
+            for (let step = 1; step <= this.maxSteps; step++) {
+                const newRow = row + step * dx;
+                const newCol = col + step * dy;
 
-            // Vérifie si la case de destination est vide (null) dans le plateau
-            if(board[row][col] != null)
-            {
-                // Vérifie si la case est un pion de sa couleur
-                if(board[row][col].color != this.color)
-                {
-                    return true;
+                // Vérifie si la case est en dehors du plateau
+                if (newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7) break;
+
+                const targetPiece = board[newRow][newCol];
+
+                if (targetPiece === null) {
+                    // Case vide, ajoute le mouvement
+                    moves.push([newRow, newCol]);
+                } else {
+                    // Case occupée par une pièce
+                    if (targetPiece.color !== this.color) {
+                        // Capture possible, ajoute le mouvement
+                        moves.push([newRow, newCol]);
+                    }
+                    // Arrête le déplacement dans cette direction
+                    break;
                 }
-                else {
-                    return false
-                }
             }
-            else 
-            {
-                return board[row][col] === null;
-            }        
-        });
+        }
 
-        console.log(validMoves);
-
-        return validMoves;
+        return this.filterValidMoves(moves, board);
     }
 
+    // Méthode pour valider les mouvements
+    filterValidMoves(moves) {
+        return moves.filter(move => {
+            const [row, col] = move;
+            return row >= 0 && row <= 7 && col >= 0 && col <= 7;
+        });
+    }
 }

@@ -8,6 +8,7 @@ export default  class Pawn extends Pieces
         this.emplacement = emplacement;
     }
 
+    // Cette fonction remplace la fonction générique car le comportement du pion est différent
     // Déplacements du pion : en fonction de la couleur, une case vers le haut ou le bas
     checkMove(board)
     {

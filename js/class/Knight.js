@@ -6,18 +6,10 @@ export default class Knight extends Pieces
     {
         super(imgKnight, color, "Knight");
         this.emplacement = emplacement;
-    }
-
-    // Déplacement en L
-    checkMove(board)
-    {
-        const [row, col] = this.emplacement;
-        const moves = [
-            [row + 2, col + 1], [row + 2, col - 1], [row - 2, col + 1], [row - 2, col - 1],
-            [row + 1, col + 2], [row + 1, col - 2], [row - 1, col + 2], [row - 1, col - 2]
+        this.directions = [
+            [2, 1], [2, -1], [-2, 1], [-2, -1],
+            [1, 2], [1, -2], [-1, 2], [-1, -2]
         ];
-
-        return this.filterValidMoves(moves, board);
+        this.maxSteps = 1;
     }
-
 }
