@@ -6,6 +6,7 @@ const chessboard = new Chessboard();
 
 const squares = document.querySelectorAll('.square');
 
+let currentRound = 0;
 let row, col;
 
 squares.forEach(square => {
@@ -21,8 +22,9 @@ squares.forEach(square => {
 
             // Nettoie les surbrillances existantes
             clearHighlights();
+            currentRound++
         }
-        else
+        else// if (checkIfPlayerRound)
         {
             // Nettoie les surbrillances existantes
             clearHighlights();
@@ -31,19 +33,21 @@ squares.forEach(square => {
             col = parseInt(square.getAttribute('data-col'));
 
             if(chessboard.board[row][col] != null) {
-                let piece = chessboard.board[row][col];
-                let moves = piece.checkMove(chessboard.board);
+                if (checkIfPlayerRound(currentRound,chessboard.board[row][col])){
+                    let piece = chessboard.board[row][col];
+                    let moves = piece.checkMove(chessboard.board);
 
-                moves.forEach( move => {
-                    const [moveRow, moveCol] = move;
+                    moves.forEach( move => {
+                        const [moveRow, moveCol] = move;
 
-                    // Sélectionne la case cible avec les attributs data-row et data-col
-                    const targetSquare = document.querySelector(`.square[data-row="${moveRow}"][data-col="${moveCol}"]`);
-                    
-                    if (targetSquare) {
-                        targetSquare.classList.add('highlight');
-                    }
-                });
+                        // Sélectionne la case cible avec les attributs data-row et data-col
+                        const targetSquare = document.querySelector(`.square[data-row="${moveRow}"][data-col="${moveCol}"]`);
+                        
+                        if (targetSquare) {
+                            targetSquare.classList.add('highlight');
+                        }
+                    });
+                }
             }
         }
     });
@@ -63,4 +67,9 @@ function clearHighlights() {
     squares.forEach(square => {
         square.classList.remove('highlight');
     });
+}
+
+function checkIfPlayerRound(currentRound,piece){
+    //const piece = chessboard.board[row][col];
+    return ((currentRound%2==0 && piece.color=="white")||(currentRound%2==1 && piece.color=="black"))
 }
