@@ -23,4 +23,6 @@ export default class PieceManger {
         pieceImage.classList.add('captured-piece');
         container.appendChild(pieceImage);
     }
+
+    /* peut etre a ajouter les piece dans l ordre dans capturedBlackPieces et capturedWhitePieces*/
 }
