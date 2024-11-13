@@ -20,7 +20,7 @@ export default class King extends Pieces
         ];
 
         // Modifier et utiliser filterValidMove
-        return moves.filter(([row, col]) => row >= 0 && row < 8 && col >= 0 && col < 8);
+       return this.filterValidMoves(moves, board);
     }
 
 
