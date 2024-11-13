@@ -27,6 +27,9 @@ body {
 .black {
     background-color: #888;
 }
+.square.highlight{
+    cursor: pointer;
+}
 .square.highlight::after {
     content: '';
     width: 20px; 
@@ -43,5 +46,6 @@ body {
     position: absolute;
     height: 90%;
     width: 90%;
+    cursor: pointer;
 }
 
