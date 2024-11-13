@@ -4,7 +4,7 @@ import Bishop from '../class/Bishop.js';
 import Queen from '../class/Queen.js';
 import King from '../class/King.js';
 import Pawn from '../class/Pawn.js';
-
+import PieceManger from './PieceManger.js';
 
 export default class Chessboard 
 {
@@ -13,6 +13,7 @@ export default class Chessboard
         this.board = this.createBoard(); // Crée un tableau 2D pour le plateau
         this.setupPieces(); // Initialise les pièces sur le plateau
         this.generateChessBoard();
+        this.pieceManger = new PieceManger(); 
     }
 
     // Fonction pour créer un tableau 2D vide représentant le plateau d'échecs
@@ -89,6 +90,15 @@ export default class Chessboard
     movePiece(row, col, newRow, newCol)
     {
         const piece = this.board[row][col];
+
+        const targetPiece = this.board[newRow][newCol];
+
+        if(targetPiece != null){
+            // Capture de la pièce si elle appartient à l'adversaire
+            if (targetPiece && targetPiece.color !== piece.color) {
+                this.pieceManger.capturePiece(targetPiece);
+            }
+        }
 
         // Récupère l'élément DOM pour la case de destination
         const targetSquare = document.querySelector(`.square[data-row="${newRow}"][data-col="${newCol}"]`);

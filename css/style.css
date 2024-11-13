@@ -49,3 +49,26 @@ body {
     cursor: pointer;
 }
 
+.captured-black, .captured-white {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    height: auto;
+}
+
+.captured-white {
+    top: 0;
+    left: 0;
+}
+
+.captured-black {
+    bottom: 0;
+    right: 0;
+}
+
+.captured-piece {
+    width: 50px;
+    height: 50px;
+    margin: 4px;
+}
