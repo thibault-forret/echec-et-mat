@@ -22,6 +22,7 @@ squares.forEach(square => {
             // Nettoie les surbrillances existantes
             clearHighlights();
             currentRound++
+            updatePlayerTurn(currentRound);
         }
         else// if (checkIfPlayerRound)
         {
@@ -71,4 +72,17 @@ function clearHighlights() {
 function checkIfPlayerRound(currentRound,piece){
     //const piece = chessboard.board[row][col];
     return ((currentRound%2==0 && piece.color=="white")||(currentRound%2==1 && piece.color=="black"))
+}
+
+function updatePlayerTurn(currentRound) {
+    const playerTurnElement = document.getElementById("player-turn");
+    const currentPlayer = (currentRound % 2 === 0) ? "Joueur 1" : "Joueur 2";
+    playerTurnElement.textContent = `C'est le tour de : ${currentPlayer}`;
+    if (currentRound % 2 === 0) {
+        playerTurnElement.classList.remove("joueur2");
+        playerTurnElement.classList.add("joueur1");
+    } else {
+        playerTurnElement.classList.remove("joueur1");
+        playerTurnElement.classList.add("joueur2");
+    }
 }

@@ -77,3 +77,27 @@ body {
     max-width: 50px; /* Taille max en pixels */
     max-height: 50px;
 }
+
+
+#player-turn {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    background: #888;
+    padding: 15px 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: fit-content;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+#player-turn.joueur1 {
+    color: #ffffff;
+}
+
+#player-turn.joueur2 {
+    color: #000000;
+}
