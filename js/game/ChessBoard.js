@@ -126,5 +126,41 @@ export default class Chessboard
         piece.emplacement = [newRow, newCol];
         this.board[newRow][newCol] = piece;
         this.board[row][col] = null; // Vide la case d'origine
+
+        // Vérifie si un pion atteint l'extrémité du plateau
+        if (piece.type === "Pawn" && (newRow === 0 || newRow === 7)) {
+            console.log("reine");
+            this.promotePawn(piece, newRow, newCol);
+        }
     }
+
+    promotePawn(pawn, row, col) {
+        const queenImage = pawn.color === 'white' ? 'img/whitePiece/w-queen.png' : 'img/blackPiece/b-queen.png';
+    
+        // Crée une nouvelle instance de la reine
+        const queen = new Queen(queenImage, [row, col], pawn.color);
+    
+        // Remplace le pion par la reine dans le tableau
+        this.board[row][col] = queen;
+    
+        // Met à jour l'image dans le DOM
+        const targetSquare = document.querySelector(`.square[data-row="${row}"][data-col="${col}"]`);
+        const queenImageElement = document.createElement('img');
+        queenImageElement.src = queen.image;
+        queenImageElement.alt = 'Queen';
+        queenImageElement.classList.add('piece');
+    
+        // Remplace l'image existante par celle de la reine
+        const existingPieceImage = targetSquare.querySelector('.piece');
+        if (existingPieceImage) {
+            targetSquare.removeChild(existingPieceImage);
+        }
+        targetSquare.appendChild(queenImageElement);
+    }
+    
+
+
+
 }
+
+
