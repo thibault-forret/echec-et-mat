@@ -35,7 +35,12 @@ squares.forEach(square => {
                 if (checkIfPlayerRound(currentRound,chessboard.board[row][col])){
                     let piece = chessboard.board[row][col];
                     let moves = piece.checkMove(chessboard.board);
-
+ /////////////////////////////////////////////////////
+                    // Filtre les mouvements qui mettent le roi en échec
+                    moves = moves.filter(([moveRow, moveCol]) => {
+                        return chessboard.isMoveSafe(piece, row, col, moveRow, moveCol);
+                    });
+/////////////////////////////////////////
                     moves.forEach( move => {
                         const [moveRow, moveCol] = move;
 
@@ -51,6 +56,11 @@ squares.forEach(square => {
         }
     });
 });
+
+
+
+
+
 
 function checkIfHighlights(square){
     if(square.classList.contains('highlight'))
