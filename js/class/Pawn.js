@@ -17,16 +17,35 @@ export default  class Pawn extends Pieces
 
         // Déplacement de base du pion (blanc ou noir)
         if (this.color === 'black') {
-            moves.push([row + 1, col]); // avancer d'une case
-            if (row === 1) {
-                moves.push([row + 2, col]); // avancer de deux cases si au point de départ
+            if (board[row + 1]?.[col] === null) {
+                moves.push([row + 1, col]); // avancer d'une case
+                if (row === 1 && board[row + 2]?.[col] === null && board[row + 1]?.[col] === null) {
+                    moves.push([row + 2, col]); // avancer de deux cases si au point de départ
+                }
+            }   
+
+            if (board[row + 1]?.[col - 1]?.color === 'white') {
+                moves.push([row + 1, col - 1]);
+            }
+            if (board[row + 1]?.[col + 1]?.color === 'white') {
+                moves.push([row + 1, col + 1]);
+            }
+
+
+        } else {
+            if (board[row - 1]?.[col] === null) {
+                moves.push([row - 1, col]);
+                if (row === 6 && board[row - 2]?.[col] === null && board[row - 1]?.[col] === null) {
+                    moves.push([row - 2, col]);
+                }
+            }
+            if (board[row - 1]?.[col - 1]?.color === 'black') {
+                moves.push([row - 1, col - 1]);
+            }
+            if (board[row - 1]?.[col + 1]?.color === 'black') {
+                moves.push([row - 1, col + 1]);
             }
             
-        } else {
-            moves.push([row - 1, col]);
-            if (row === 6) {
-                moves.push([row - 2, col]);
-            }
         }
 
         return this.filterValidMoves(moves, board);
