@@ -91,10 +91,22 @@ export default class Chessboard
     {
         if (this.board[row][col].FirstMouve==false) 
             {
-                console.log('Mouvement en cours');
+                //si roock alore deplacer la tour puis le roi 
+                if (this.board[row][col].type=='King')
+                    {
+                        this.deplacePiece(newRow, newCol+1, newRow, newCol-1);
+                    }
                 this.board[row][col].FirstMouve=true;
+                this.deplacePiece(row, col, newRow, newCol);
             }
-        col
+        else {
+            this.deplacePiece(row, col, newRow, newCol);
+        }
+        
+    }
+
+
+    deplacePiece(row, col, newRow, newCol){
         const piece = this.board[row][col];
 
         const targetPiece = this.board[newRow][newCol];

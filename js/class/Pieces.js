@@ -64,6 +64,25 @@ export default class Pieces
                     }
                 }
             }
+            if (this.type =="King" && this.FirstMouve==false)
+                {
+                    for ( var i = this.emplacement[1]-1 ; i >-1 ; i--){
+                        console.log("verif ");
+    
+                        if (board[row][i] !== null) {
+                            if (board[row][i].type !== 'Rook') {
+                                break;
+                            }
+                            else {
+                                var newCol = col-3;
+                                
+                                console.log(row,newCol);
+                                moves.push([row,newCol]);
+                                break;
+                            }
+                        }
+                    }
+                }
         return this.filterValidMoves(moves, board);
     }
 
