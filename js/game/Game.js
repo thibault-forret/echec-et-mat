@@ -18,10 +18,9 @@ squares.forEach(square => {
             let newCol = parseInt(square.getAttribute('data-col'));
 
             chessboard.movePiece(row, col, newRow, newCol);
-
             // Nettoie les surbrillances existantes
             clearHighlights();
-            currentRound++
+            currentRound++ 
         }
         else// if (checkIfPlayerRound)
         {
@@ -30,7 +29,6 @@ squares.forEach(square => {
 
             row = parseInt(square.getAttribute('data-row'));
             col = parseInt(square.getAttribute('data-col'));
-
             if(chessboard.board[row][col] != null) {
                 if (checkIfPlayerRound(currentRound,chessboard.board[row][col])){
                     let piece = chessboard.board[row][col];

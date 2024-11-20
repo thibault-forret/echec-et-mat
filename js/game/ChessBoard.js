@@ -89,6 +89,12 @@ export default class Chessboard
 
     movePiece(row, col, newRow, newCol)
     {
+        if (this.board[row][col].FirstMouve==false) 
+            {
+                console.log('Mouvement en cours');
+                this.board[row][col].FirstMouve=true;
+            }
+        col
         const piece = this.board[row][col];
 
         const targetPiece = this.board[newRow][newCol];
