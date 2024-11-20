@@ -6,10 +6,11 @@ export default class King extends Pieces
     {
         super(imgKing, color, "King");
         this.emplacement = emplacement;
+        this.FirstMouve=false;
         this.directions = [
             [1, 0], [-1, 0], [0, 1], [0, -1], 
             [1, 1], [-1, -1], [1, -1], [-1, 1] 
         ];
-        this.maxSteps = 1; 
+        this.maxSteps = 1;
     }
 }
