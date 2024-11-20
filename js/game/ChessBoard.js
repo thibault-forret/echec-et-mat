@@ -201,33 +201,50 @@ export default class Chessboard
 
         return kingPosition;
     }
-    
-    // Vérifie si le roi est en échec
-    isKingInCheck(color) {
-        // Trouve la position du roi de la couleur donnée
-        const kingPosition = this.getKingPosition(color);
 
-        // Erreur dans la configuration
-        if (kingPosition == null)
-            return false;
-            
-        const [kingRow, kingCol] = kingPosition;
-    
-        // Vérifie toutes les pièces adverses pour voir si elles peuvent atteindre le roi
+    // Vérifie si une pièce adverse peut atteindre le roi
+    verifyIfAdversaryPiecesCheckKing(kingRow, kingCol, color)
+    {
         for (let row = 0; row < 8; row++) {
             for (let col = 0; col < 8; col++) {
                 const piece = this.board[row][col];
                 if (piece && piece.color !== color) {
                     const possibleMoves = piece.checkMove(this.board);
                     if (possibleMoves.some(([r, c]) => r === kingRow && c === kingCol)) {
-                        this.highlightKing(kingRow, kingCol); // Ajoute un fond rouge
                         return true; // Le roi est en échec
                     }
                 }
             }
         }
+
+        return false; // Le roi n'est pas en échec
+    }
     
-        this.removeHighlightFromKing(color); // Enlève le fond rouge si le roi n'est plus en échec
+    // Vérifie si le roi est en échec
+    isKingInCheck(color, simulateMove = false) {
+        // Trouve la position du roi de la couleur donnée
+        const kingPosition = this.getKingPosition(color);
+
+        // Erreur dans la configuration
+        if (kingPosition == null)
+            return false;
+        
+        // Récupère les coordonnées du roi
+        const [kingRow, kingCol] = kingPosition;
+    
+        // Vérifie toutes les pièces adverses pour voir si elles peuvent atteindre le roi
+        let inCheck = this.verifyIfAdversaryPiecesCheckKing(kingRow, kingCol, color);
+
+        // Le roi est en échec
+        if (inCheck)
+        {
+            if (!simulateMove)
+                this.highlightKing(kingRow, kingCol); // Ajoute un fond rouge au roi
+            return true;
+        }
+
+        if (!simulateMove)
+            this.removeHighlightFromKing(kingRow, kingCol); // Enlève le fond rouge si le roi n'est plus en échec
         return false; // Le roi n'est pas en échec
     }
 
@@ -262,8 +279,7 @@ export default class Chessboard
     }
     
     
-
-    // ajout MAJ Echec
+    // Vérifie si un mouvement est sûr pour le roi
     isMoveSafe(piece, row, col, newRow, newCol) {
         const originalPiece = this.board[newRow][newCol];
         const originalPosition = piece.emplacement.slice();
@@ -273,7 +289,7 @@ export default class Chessboard
         this.board[row][col] = null;
         piece.emplacement = [newRow, newCol];
     
-        const kingSafe = !this.isKingInCheck(piece.color);
+        const kingSafe = !this.isKingInCheck(piece.color, true);
     
         // Annule le mouvement simulé
         this.board[row][col] = piece;
@@ -283,6 +299,7 @@ export default class Chessboard
         return kingSafe;
     }
 
+    // Met en surbrillance le roi en échec
     highlightKing(row, col) {
         const kingSquare = document.querySelector(`.square[data-row="${row}"][data-col="${col}"]`);
         if (kingSquare) {
@@ -290,19 +307,11 @@ export default class Chessboard
         }
     }
     
-    removeHighlightFromKing(color) {
-        // Parcourt toutes les cases pour enlever la classe 'in-check' du roi
-        for (let row = 0; row < 8; row++) {
-            for (let col = 0; col < 8; col++) {
-                const piece = this.board[row][col];
-                if (piece && piece.type === "King" && piece.color === color) {
-                    const kingSquare = document.querySelector(`.square[data-row="${row}"][data-col="${col}"]`);
-                    if (kingSquare) {
-                        kingSquare.classList.remove('in-check');
-                    }
-                    return; // Le roi est unique, pas besoin de continuer
-                }
-            }
+    // Enlève la surbrillance du roi
+    removeHighlightFromKing(row, col) {
+        const kingSquare = document.querySelector(`.square[data-row="${row}"][data-col="${col}"]`);
+        if (kingSquare) {
+            kingSquare.classList.remove('in-check');
         }
     }
 

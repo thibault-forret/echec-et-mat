@@ -22,6 +22,7 @@ squares.forEach(square => {
 
             // Nettoie les surbrillances existantes
             clearHighlights();
+
             currentRound++
         }
         else
@@ -34,7 +35,7 @@ squares.forEach(square => {
 
             if(chessboard.board[row][col] != null) 
             {
-                if (checkIfPlayerRound(currentRound,chessboard.board[row][col]))
+                if (checkIfPlayerRound(currentRound, chessboard.board[row][col]))
                 {
                     let piece = chessboard.board[row][col];
 
@@ -43,6 +44,15 @@ squares.forEach(square => {
 
                     // Retirer les mouvements qui mettent le roi en échec
                     moves = removeMoveThatPutKingInCheck(piece, row, col, moves);
+
+                    // Vérifie si le roi est en échec
+                    chessboard.isKingInCheck(piece.color);
+                                
+                    // Vérifie si le roi est en échec et mat
+                    if (chessboard.isCheckmate(piece.color)) {
+                        alert("Échec et mat !");
+                        // Fin de la partie
+                    }
 
                     // Ajoute les surbrillances sur les cases jouables
                     addHighlightsOnPlayableMoves(moves);
