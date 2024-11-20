@@ -182,10 +182,10 @@ export default class Chessboard
         }
         targetSquare.appendChild(queenImageElement);
     }
-    
 
-    isKingInCheck(color) {
-        // Trouve la position du roi de la couleur donnée
+    // Trouve la position du roi de la couleur donnée
+    getKingPosition(color)
+    {
         let kingPosition = null;
     
         for (let row = 0; row < 8; row++) {
@@ -198,9 +198,19 @@ export default class Chessboard
             }
             if (kingPosition) break;
         }
+
+        return kingPosition;
+    }
     
-        if (!kingPosition) return false; // Aucun roi trouvé (erreur dans la configuration)
-    
+    // Vérifie si le roi est en échec
+    isKingInCheck(color) {
+        // Trouve la position du roi de la couleur donnée
+        const kingPosition = this.getKingPosition(color);
+
+        // Erreur dans la configuration
+        if (kingPosition == null)
+            return false;
+            
         const [kingRow, kingCol] = kingPosition;
     
         // Vérifie toutes les pièces adverses pour voir si elles peuvent atteindre le roi
@@ -220,9 +230,40 @@ export default class Chessboard
         this.removeHighlightFromKing(color); // Enlève le fond rouge si le roi n'est plus en échec
         return false; // Le roi n'est pas en échec
     }
+
+
+    // Vérifie si le roi est en échec et mat
+    isCheckmate(color) 
+    {
+        // Vérifie d'abord si le roi est en échec
+        if (!this.isKingInCheck(color)) {
+            return false; // Pas en échec, donc pas en échec et mat
+        }
+    
+        // Parcourt toutes les pièces du joueur
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
+                const piece = this.board[row][col];
+                if (piece && piece.color === color) {
+                    const possibleMoves = piece.checkMove(this.board);
+    
+                    // Vérifie chaque mouvement possible
+                    for (const [newRow, newCol] of possibleMoves) {
+                        if (this.isMoveSafe(piece, row, col, newRow, newCol)) {
+                            return false; // Si un mouvement légal existe, pas d'échec et mat
+                        }
+                    }
+                }
+            }
+        }
+    
+        // Aucun mouvement légal trouvé, c'est un échec et mat
+        return true;
+    }
+    
     
 
- /////// ajout MAJ Echec
+    // ajout MAJ Echec
     isMoveSafe(piece, row, col, newRow, newCol) {
         const originalPiece = this.board[newRow][newCol];
         const originalPosition = piece.emplacement.slice();
