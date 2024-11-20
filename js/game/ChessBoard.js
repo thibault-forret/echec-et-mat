@@ -94,7 +94,13 @@ export default class Chessboard
                 //si roock alore deplacer la tour puis le roi 
                 if (this.board[row][col].type=='King')
                     {
-                        this.deplacePiece(newRow, newCol+1, newRow, newCol-1);
+                        if (newCol==col+2){
+                            this.deplacePiece(newRow, newCol+1, newRow, newCol-1);
+                        }
+                        else if (newCol==col-3){   
+                            this.deplacePiece(newRow, newCol-1, newRow, newCol+1);
+                        }
+                        
                     }
                 this.board[row][col].FirstMouve=true;
                 this.deplacePiece(row, col, newRow, newCol);
