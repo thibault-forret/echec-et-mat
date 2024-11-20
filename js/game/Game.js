@@ -13,10 +13,11 @@ squares.forEach(square => {
         let highlighted = checkIfHighlights(square);
         if(highlighted)
         {
-            // Joue le coup
+            // Récupère les coordonnées de la case de destination
             let newRow = parseInt(square.getAttribute('data-row'));
             let newCol = parseInt(square.getAttribute('data-col'));
-
+            
+            // Déplace la pièce
             chessboard.movePiece(row, col, newRow, newCol);
 
             // Nettoie les surbrillances existantes
@@ -31,9 +32,13 @@ squares.forEach(square => {
             row = parseInt(square.getAttribute('data-row'));
             col = parseInt(square.getAttribute('data-col'));
 
-            if(chessboard.board[row][col] != null) {
-                if (checkIfPlayerRound(currentRound,chessboard.board[row][col])){
+            if(chessboard.board[row][col] != null) 
+            {
+                if (checkIfPlayerRound(currentRound,chessboard.board[row][col]))
+                {
                     let piece = chessboard.board[row][col];
+
+                    // Récupère les mouvements possibles
                     let moves = piece.checkMove(chessboard.board);
 
                     // Retirer les mouvements qui mettent le roi en échec
