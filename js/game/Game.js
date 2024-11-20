@@ -23,6 +23,36 @@ squares.forEach(square => {
             // Nettoie les surbrillances existantes
             clearHighlights();
 
+            let checkmat = false;
+
+            if (chessboard.board[newRow][newCol].color == "white")
+                checkmat = chessboard.isCheckmate("black");
+            else
+                checkmat = chessboard.isCheckmate("white");
+            
+            if (checkmat) {
+                // Affiche la pop-up
+                const popup = document.getElementById("popup-checkmat");
+                popup.classList.remove("hidden");
+            
+                // Boutons dans la pop-up
+                const restartButton = document.getElementById("restart-button");
+                const closeButton = document.getElementById("close-popup");
+            
+                // Relancer la partie
+                restartButton.addEventListener("click", () => {
+                    popup.classList.add("hidden");
+                    restartGame(); // Fonction pour réinitialiser le plateau
+                });
+            
+                // Quitter la partie
+                closeButton.addEventListener("click", () => {
+                    popup.classList.add("hidden");
+                    alert("Merci d'avoir joué !");
+                    // Ajoutez ici une redirection ou une autre logique pour quitter
+                });
+            }
+
             currentRound++
         }
         else
@@ -47,12 +77,6 @@ squares.forEach(square => {
 
                     // Vérifie si le roi est en échec
                     chessboard.isKingInCheck(piece.color);
-                                
-                    // Vérifie si le roi est en échec et mat
-                    if (chessboard.isCheckmate(piece.color)) {
-                        alert("Échec et mat !");
-                        // Fin de la partie
-                    }
 
                     // Ajoute les surbrillances sur les cases jouables
                     addHighlightsOnPlayableMoves(moves);
