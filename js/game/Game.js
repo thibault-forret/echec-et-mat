@@ -23,7 +23,7 @@ squares.forEach(square => {
             clearHighlights();
             currentRound++
         }
-        else// if (checkIfPlayerRound)
+        else
         {
             // Nettoie les surbrillances existantes
             clearHighlights();
@@ -35,33 +35,44 @@ squares.forEach(square => {
                 if (checkIfPlayerRound(currentRound,chessboard.board[row][col])){
                     let piece = chessboard.board[row][col];
                     let moves = piece.checkMove(chessboard.board);
- /////////////////////////////////////////////////////
-                    // Filtre les mouvements qui mettent le roi en échec
-                    moves = moves.filter(([moveRow, moveCol]) => {
-                        return chessboard.isMoveSafe(piece, row, col, moveRow, moveCol);
-                    });
-/////////////////////////////////////////
-                    moves.forEach( move => {
-                        const [moveRow, moveCol] = move;
 
-                        // Sélectionne la case cible avec les attributs data-row et data-col
-                        const targetSquare = document.querySelector(`.square[data-row="${moveRow}"][data-col="${moveCol}"]`);
-                        
-                        if (targetSquare) {
-                            targetSquare.classList.add('highlight');
-                        }
-                    });
+                    // Retirer les mouvements qui mettent le roi en échec
+                    moves = removeMoveThatPutKingInCheck(piece, row, col, moves);
+
+                    // Ajoute les surbrillances sur les cases jouables
+                    addHighlightsOnPlayableMoves(moves);
                 }
             }
         }
     });
 });
 
+// Filtre les mouvements qui mettent le roi en échec
+function removeMoveThatPutKingInCheck(piece, row, col, moves)
+{
+    moves = moves.filter(([moveRow, moveCol]) => {
+        return chessboard.isMoveSafe(piece, row, col, moveRow, moveCol);
+    });
 
+    return moves;
+}
 
+// Ajoute les surbrillances sur les cases jouables
+function addHighlightsOnPlayableMoves(moves)
+{
+    moves.forEach( move => {
+        const [moveRow, moveCol] = move;
 
+        // Sélectionne la case cible avec les attributs data-row et data-col
+        const targetSquare = document.querySelector(`.square[data-row="${moveRow}"][data-col="${moveCol}"]`);
+        
+        if (targetSquare) {
+            targetSquare.classList.add('highlight');
+        }
+    });
+}
 
-
+// Met en surbrillance les cases disponibles pour le déplacement
 function checkIfHighlights(square){
     if(square.classList.contains('highlight'))
     {
@@ -72,13 +83,14 @@ function checkIfHighlights(square){
     }
 }
 
+// Nettoie les surbrillances existantes
 function clearHighlights() {
     squares.forEach(square => {
         square.classList.remove('highlight');
     });
 }
 
+// Vérifie si c'est le tour du joueur
 function checkIfPlayerRound(currentRound,piece){
-    //const piece = chessboard.board[row][col];
-    return ((currentRound%2==0 && piece.color=="white")||(currentRound%2==1 && piece.color=="black"))
+    return ((currentRound%2 == 0 && piece.color=="white")||(currentRound%2==1 && piece.color=="black"))
 }
