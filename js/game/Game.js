@@ -69,7 +69,6 @@ squares.forEach(square => {
             {
                 if (checkIfPlayerRound(currentRound, chessboard.board[row][col]))
                 {
-=
                     let piece = chessboard.board[row][col];
 
                     // Récupère les mouvements possibles
