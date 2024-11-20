@@ -91,35 +91,32 @@ export default class Chessboard
     {
         const piece = this.board[row][col];
 
-    // Vérification si le mouvement mettrait le roi en échec
-if (!this.isMoveSafe(piece, row, col, newRow, newCol)) {
-    console.log("Ce mouvement mettrait votre roi en échec !");
-    return; // Ne fait rien si le mouvement est invalide
-}
+        // Vérification si le mouvement mettrait le roi en échec
+        if (!this.isMoveSafe(piece, row, col, newRow, newCol)) {
+            console.log("Ce mouvement mettrait votre roi en échec !");
+            return; // Ne fait rien si le mouvement est invalide
+        }
 
         const targetPiece = this.board[newRow][newCol];
 
-
         // Sauvegarde de l'état initial
-    const originalPiece = targetPiece;
-    const originalPosition = piece.emplacement.slice();
+        const originalPiece = targetPiece;
+        const originalPosition = piece.emplacement.slice();
 
-    // Déplacement temporaire
-    this.board[newRow][newCol] = piece;
-    this.board[row][col] = null;
-    piece.emplacement = [newRow, newCol];
+        // Déplacement temporaire
+        this.board[newRow][newCol] = piece;
+        this.board[row][col] = null;
+        piece.emplacement = [newRow, newCol];
 
-    // Vérifie si le déplacement met le roi en échec
-    if (this.isKingInCheck(piece.color)) {
-        // Annule le déplacement si le roi est en échec
-        this.board[row][col] = piece;
-        this.board[newRow][newCol] = originalPiece;
-        piece.emplacement = originalPosition;
-        console.log("Mouvement interdit : le roi est en échec !");
-        return false; // Mouvement invalide
-    }
-
-
+        // Vérifie si le déplacement met le roi en échec
+        if (this.isKingInCheck(piece.color)) {
+            // Annule le déplacement si le roi est en échec
+            this.board[row][col] = piece;
+            this.board[newRow][newCol] = originalPiece;
+            piece.emplacement = originalPosition;
+            console.log("Mouvement interdit : le roi est en échec !");
+            return false; // Mouvement invalide
+        }
 
         if(targetPiece != null){
             // Capture de la pièce si elle appartient à l'adversaire
@@ -213,12 +210,14 @@ if (!this.isMoveSafe(piece, row, col, newRow, newCol)) {
                 if (piece && piece.color !== color) {
                     const possibleMoves = piece.checkMove(this.board);
                     if (possibleMoves.some(([r, c]) => r === kingRow && c === kingCol)) {
+                        this.highlightKing(kingRow, kingCol); // Ajoute un fond rouge
                         return true; // Le roi est en échec
                     }
                 }
             }
         }
     
+        this.removeHighlightFromKing(color); // Enlève le fond rouge si le roi n'est plus en échec
         return false; // Le roi n'est pas en échec
     }
     
@@ -241,6 +240,29 @@ if (!this.isMoveSafe(piece, row, col, newRow, newCol)) {
         piece.emplacement = originalPosition;
     
         return kingSafe;
+    }
+
+    highlightKing(row, col) {
+        const kingSquare = document.querySelector(`.square[data-row="${row}"][data-col="${col}"]`);
+        if (kingSquare) {
+            kingSquare.classList.add('in-check');
+        }
+    }
+    
+    removeHighlightFromKing(color) {
+        // Parcourt toutes les cases pour enlever la classe 'in-check' du roi
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
+                const piece = this.board[row][col];
+                if (piece && piece.type === "King" && piece.color === color) {
+                    const kingSquare = document.querySelector(`.square[data-row="${row}"][data-col="${col}"]`);
+                    if (kingSquare) {
+                        kingSquare.classList.remove('in-check');
+                    }
+                    return; // Le roi est unique, pas besoin de continuer
+                }
+            }
+        }
     }
 
 }

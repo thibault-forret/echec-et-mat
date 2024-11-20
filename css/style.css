@@ -77,3 +77,7 @@ body {
     max-width: 50px; /* Taille max en pixels */
     max-height: 50px;
 }
+
+.square.in-check {
+    background-color: red !important;
+}
