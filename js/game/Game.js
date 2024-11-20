@@ -7,6 +7,10 @@ const squares = document.querySelectorAll('.square');
 
 let currentRound = 0;
 let row, col;
+let whiteTimeLeft = 1 * 60;  // 100 minutes en secondes
+let blackTimeLeft = 1 * 60;  // 100 minutes en secondes
+let timerInterval;
+let timeIncrement = 30; // 30 secondes d'incrément à chaque tour
 
 squares.forEach(square => {
     square.addEventListener('click', () => {
@@ -81,8 +85,52 @@ function updatePlayerTurn(currentRound) {
     if (currentRound % 2 === 0) {
         playerTurnElement.classList.remove("joueur2");
         playerTurnElement.classList.add("joueur1");
+        startTimer("White");
+        WhiteTimeLeft += timeIncrement; // Ajout de 30 secondes pour Noir
     } else {
         playerTurnElement.classList.remove("joueur1");
         playerTurnElement.classList.add("joueur2");
+        startTimer("Black");
+        BlackTimeLeft += timeIncrement; // Ajout de 30 secondes pour Blanc
     }
+}
+
+
+
+// Fonction pour démarrer le timer du joueur
+function startTimer(player) {
+    const timerElement = document.getElementById(player + '-timer');
+    clearInterval(timerInterval);
+
+    timerInterval = setInterval(() => {
+        if (player === "White") {
+            if (whiteTimeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Le temps de Blanc est écoulé !");
+            } else {
+                whiteTimeLeft--;
+                updateTimeDisplay(timerElement, whiteTimeLeft);
+            }
+        } else {
+            if (blackTimeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Le temps de Noir est écoulé !");
+            } else {
+                blackTimeLeft--;
+                updateTimeDisplay(timerElement, blackTimeLeft);
+            }
+        }
+    }, 1000);
+}
+
+// Fonction pour afficher le temps restant
+function updateTimeDisplay(element, timeLeft) {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    element.textContent = `Temps restant : ${padTime(minutes)}:${padTime(seconds)}`;
+}
+
+// Ajouter un zéro devant les minutes et secondes si nécessaire
+function padTime(time) {
+    return time < 10 ? '0' + time : time;
 }
