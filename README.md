@@ -62,3 +62,6 @@ Faites en un fork et poussez régulièrement le code source, la documentation, l
 
 ## Cahier des Charges :
 https://docs.google.com/document/d/1HJ2D3tfftFTtnw1XUSCpIWZNjZ0fkv8qs_a_7xn_MfQ/edit?usp=sharing
+
+## Documentation Technique :
+https://docs.google.com/document/d/1vwkR6GKdI6QiMAf2KbtygQYCvrydWerS7dv9ZSRHJ0w/edit?usp=sharing
