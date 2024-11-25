@@ -27,6 +27,9 @@ squares.forEach(square => {
             // Nettoie les surbrillances existantes
             clearHighlights();
 
+            if(chessboard.board[newRow][newCol].type == "King") {
+                chessboard.removeHighlightFromKing(row, col);
+            }
 
             let checkmat = false;
 
