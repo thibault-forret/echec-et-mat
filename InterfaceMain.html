@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interface Jeu d'Échecs</title>
+    
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="">
+    <div class="page couleur-bois" id="page">
+        <div class="container">
+            <h1 class="title">Jeu d'Échecs</h1>
+            <a href="index.html" class="button">Jouer</a>
+            <a href="Setting.html" class="button setting">Setting</a>
+        </div>
+    </div>
+
+    <script>
+        // Liste des images de pièces d'échecs locales
+        const pieces = [
+            "img/whitePiece/w-pawn.png",
+            "img/whitePiece/w-king.png",
+            "img/whitePiece/w-queen.png",
+            "img/whitePiece/w-rook.png",
+            "img/whitePiece/w-knight.png",
+            "img/whitePiece/w-bishop.png",
+            "img/blackPiece/b-pawn.png",
+            "img/blackPiece/b-king.png", 
+            "img/blackPiece/b-queen.png",
+            "img/blackPiece/b-rook.png",
+            "img/blackPiece/b-knight.png",
+            "img/blackPiece/b-bishop.png"
+        ];
+
+        // Fonction pour générer une pièce avec une animation de chute et rotation
+        function createFallingPiece() {
+            const piece = document.createElement("img");
+            piece.src = pieces[Math.floor(Math.random() * pieces.length)];
+            piece.className = "pieceInterface";
+
+            // Sélectionner le conteneur où les pièces doivent apparaître
+            const container = document.querySelector('.page');
+
+            // Calculer une position horizontale aléatoire à l'intérieur du conteneur
+            const containerWidth = container.offsetWidth; // Largeur du conteneur
+            const containerLeft = container.offsetLeft;   // Position du conteneur dans la page
+            const randomX = Math.random() * containerWidth + containerLeft; // Position aléatoire dans le conteneur
+            piece.style.left = `${randomX}px`;
+
+            // Appliquer un positionnement fixe pour éviter l'agrandissement de la page
+            piece.style.position = "fixed";
+
+            // Durée aléatoire pour l'animation
+            const randomDuration = 3 + Math.random() * 10; // Entre 3 et 6 secondes
+            piece.style.animationDuration = `${randomDuration}s, ${randomDuration}s`;
+
+            // Ajout de la pièce au body
+            document.body.appendChild(piece);
+
+            // Supprimer la pièce après l'animation pour éviter l'accumulation
+            setTimeout(() => piece.remove(), randomDuration * 1000);
+        }
+
+        // Lancer la création de pièces en continu
+        setInterval(createFallingPiece, 450); // Une pièce toutes les 500ms
+    </script>
+</body>
+</html>
