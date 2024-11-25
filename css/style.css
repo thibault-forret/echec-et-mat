@@ -12,6 +12,8 @@ body {
     grid-template-columns: repeat(8, 80px);
     grid-template-rows: repeat(8, 80px);
     border: 2px solid #333;
+
+
 }
 .square {
     width: 80px;
@@ -28,13 +30,170 @@ body {
 .black {
     background-color: #888;
 }
+.square.highlight{
+    cursor: pointer;
+}
+.square.highlight::after {
+    content: '';
+    width: 20px; 
+    height: 20px;
+    background-color: red; 
+    border-radius: 50%; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 .piece {
     position: absolute;
     height: 90%;
     width: 90%;
+    cursor: pointer;
 }
 
+/* Conteneurs des pièces capturées */
+.captured-white, .captured-black {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 20vw; /* Taille max dépendant de l'écran */
+    max-height: auto;
+    gap: 0.5vw; /* Espacement entre les pièces */
+}
+
+.captured-white {
+    top: 0; /* Espace depuis le haut pour réagir à la taille de l'écran */
+    left: 0;
+}
+
+.captured-black {
+    bottom: 0;
+    right: 0;
+}
+
+.captured-piece {
+    width: 6vw; /* Taille de la pièce réactive */
+    height: 6vw;
+    max-width: 50px; /* Taille max en pixels */
+    max-height: 50px;
+}
+
+.square.in-check {
+    background-color: red !important;
+}
+
+/* Style de la pop-up */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup.hidden {
+    display: none;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.popup-content h2 {
+    margin-bottom: 10px;
+}
+
+.popup-content p {
+    margin-bottom: 20px;
+}
+
+.popup-content button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#restart-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+#close-popup {
+    background-color: #f44336;
+    color: white;
+}
+
+#player-turn {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    background: #888;
+    padding: 15px 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: fit-content;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+#player-turn.white{
+    color: #000000;
+    background-color: #ffffff;
+}
+
+#player-turn.black {
+    color: #ffffff;
+    background-color: #000000;
+}
+
+.timer {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+#White-timer, #Black-timer {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: fit-content;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+}
+
+#White-timer {
+    background-color: #ffffff; /* Blanc */
+    color: #000000;
+}
+
+#Black-timer {
+    background-color: #000000; /* Noir */
+    color: #ffffff;
+}
+
+#White-timer:hover, #Black-timer:hover {
+    transform: scale(1.01);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
 
 /* Style pour l'interface */
 
@@ -123,4 +282,3 @@ body {
         transform: translateY(60vh); /* Va jusqu'en bas de l'écran */
     }
 }
-

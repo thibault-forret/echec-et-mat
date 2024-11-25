@@ -9,12 +9,30 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+    <div class="captured-white"></div>
+    <div class="game-board">
+        <div id="player-turn" class="white">Tour de : Blanc</div>
+        <div class="timer">
+            <div id="White-timer">Temps restant : 10:00</div>
+            <div id="Black-timer">Temps restant : 10:00</div>
+        </div>
+        <div class="chessboard">
 
-    <div class="chessboard">
+            <!-- Gérer en JS -->
 
-        <!-- Gérer en JS -->
-
+        </div>
     </div>
+    <div class="captured-black"></div>
+    
+    <div id="popup-checkmat" class="popup hidden">
+        <div class="popup-content">
+            <h2>Échec et mat !</h2>
+            <p>La partie est terminée. Souhaitez-vous rejouer ou quitter ?</p>
+            <button id="restart-button">Rejouer</button>
+            <button id="close-popup">Quitter</button>
+        </div>
+    </div>
+    
 
     <script type="module" src="./js/game/Game.js"></script>
 </body>

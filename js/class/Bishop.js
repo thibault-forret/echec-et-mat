@@ -6,20 +6,9 @@ export default class Bishop extends Pieces
     {
         super(imgBishop, color, "Bishop");
         this.emplacement = emplacement;
+        this.directions = [
+            [1, 1], [-1, -1], [1, -1], [-1, 1] 
+        ];
+        this.maxSteps = 7;
     }
-
-    // Déplacements du fou : uniquement en diagonale
-    checkMove()
-    {
-        const [row, col] = this.emplacement;
-        const moves = [];
-
-        // Diagonales
-        for (let i = 1; i < 8; i++) {
-            moves.push([row + i, col + i], [row - i, col - i], [row + i, col - i], [row - i, col + i]);
-        }
-
-        return this.filterValidMoves(moves, board);
-    }
-
 }
