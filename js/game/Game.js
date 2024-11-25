@@ -7,10 +7,11 @@ const squares = document.querySelectorAll('.square');
 
 let currentRound = 0;
 let row, col;
-let whiteTimeLeft = 1 * 60;  // 100 minutes en secondes
-let blackTimeLeft = 1 * 60;  // 100 minutes en secondes
+
+// 10 min en secondes
+let whiteTimeLeft = 10 * 60;
+let blackTimeLeft = 10 * 60;
 let timerInterval;
-let timeIncrement = 30; // 30 secondes d'incrément à chaque tour
 
 squares.forEach(square => {
     square.addEventListener('click', () => {
@@ -28,7 +29,7 @@ squares.forEach(square => {
             currentRound++
             updatePlayerTurn(currentRound);
         }
-        else// if (checkIfPlayerRound)
+        else
         {
             // Nettoie les surbrillances existantes
             clearHighlights();
@@ -74,24 +75,21 @@ function clearHighlights() {
 }
 
 function checkIfPlayerRound(currentRound,piece){
-    //const piece = chessboard.board[row][col];
     return ((currentRound%2==0 && piece.color=="white")||(currentRound%2==1 && piece.color=="black"))
 }
 
 function updatePlayerTurn(currentRound) {
     const playerTurnElement = document.getElementById("player-turn");
-    const currentPlayer = (currentRound % 2 === 0) ? "Joueur 1" : "Joueur 2";
-    playerTurnElement.textContent = `C'est le tour de : ${currentPlayer}`;
+    const currentPlayer = (currentRound % 2 === 0) ? "Blanc" : "Noir";
+    playerTurnElement.textContent = `Tour de : ${currentPlayer}`;
     if (currentRound % 2 === 0) {
-        playerTurnElement.classList.remove("joueur2");
-        playerTurnElement.classList.add("joueur1");
+        playerTurnElement.classList.remove("black");
+        playerTurnElement.classList.add("white");
         startTimer("White");
-        WhiteTimeLeft += timeIncrement; // Ajout de 30 secondes pour Noir
     } else {
-        playerTurnElement.classList.remove("joueur1");
-        playerTurnElement.classList.add("joueur2");
+        playerTurnElement.classList.remove("white");
+        playerTurnElement.classList.add("black");
         startTimer("Black");
-        BlackTimeLeft += timeIncrement; // Ajout de 30 secondes pour Blanc
     }
 }
 
