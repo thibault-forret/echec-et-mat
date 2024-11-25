@@ -9,13 +9,11 @@ export default class Pieces
         this.type = type;//type de la pièce(rois, reine, ect...)
         this.directions = []; // À remplir par chaque pièce
         this.maxSteps = 0;    // Nombre maximal de cases à parcourir (selon la pièce)
+        this.FirstMouve=false;  // Pour les rois, indique si il a déjà bougé
     }
 
 
-    move (newEmplacement)
-    {
-        this.emplacement=newEmplacement;
-    }
+
 
     // Méthode générique de déplacement
     checkMove(board) {
@@ -47,7 +45,37 @@ export default class Pieces
                 }
             }
         }
-
+        if (this.type =="King" && this.FirstMouve==false)
+            {
+                for ( var i = this.emplacement[1]+1 ; i <8 ; i++ ){
+                    if (board[row][i] !== null) {
+                        if (board[row][i].type !== 'Rook') {
+                            break;
+                        }
+                        else {
+                            var newCol = col+2;
+                            moves.push([row,newCol]);
+                            break;
+                        }
+                    }
+                }
+            }
+            if (this.type =="King" && this.FirstMouve==false)
+                {
+                    for ( var i = this.emplacement[1]-1 ; i >-1 ; i--){
+    
+                        if (board[row][i] !== null) {
+                            if (board[row][i].type !== 'Rook') {
+                                break;
+                            }
+                            else {
+                                var newCol = col-3;
+                                moves.push([row,newCol]);
+                                break;
+                            }
+                        }
+                    }
+                }
         return this.filterValidMoves(moves, board);
     }
 

@@ -6,6 +6,7 @@ export default  class Rook extends Pieces
     {
         super(imgRook, color, "Rook");
         this.emplacement = emplacement;
+        this.FirstMouve=false;
         this.directions = [
             [1, 0], [-1, 0], [0, 1], [0, -1]
         ];
