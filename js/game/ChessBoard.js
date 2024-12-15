@@ -58,6 +58,7 @@ export default class Chessboard
     generateChessBoard() 
     {
         const chessboard = document.querySelector('.chessboard');
+            chessboard.innerHTML = ''; // Vider le contenu précédent
 
         // Boucle à travers chaque rangée et colonne du plateau
         for (let row = 0; row < 8; row++) {
