@@ -7,28 +7,48 @@ import King from '../class/King.js';
 import Pawn from '../class/Pawn.js';
 
 describe('Chessboard', () => {
+
     let chessboard;
+
+    let blackContainer, whiteContainer, chessboardElement;
+
     beforeEach(() => {
+        blackContainer = document.createElement('div');
+        blackContainer.className = 'captured-black';
+        whiteContainer = document.createElement('div');
+        whiteContainer.className = 'captured-white';
+
+        document.body.appendChild(blackContainer);
+        document.body.appendChild(whiteContainer); 
+
         // Créer un élément div avec la classe 'chessboard'
-        chessboard = document.createElement('div');
-        chessboard.className = 'chessboard';
-        document.body.appendChild(chessboard); // Ajouter l'élément au body
+        chessboardElement = document.createElement('div');
+        chessboardElement.className = 'chessboard';
+        document.body.appendChild(chessboardElement); // Ajouter l'élément au body
+
+        chessboard = new Chessboard();
     });
 
     afterEach(() => {
-        // Nettoyer le DOM après chaque test
-        document.body.removeChild(chessboard);
+        document.body.removeChild(chessboardElement);
+        document.body.removeChild(whiteContainer);
+        document.body.removeChild(blackContainer);
     });
 
-    test('should create an 8x8 board', () => {
-        const board = new Chessboard();
-        board.generateChessBoard();
+    test('Should create 8x8 board', () => {
+        let count = 0;
+
+        for (let i = 0; i < chessboard.board.length; i++) {
+            for (let j = 0; j < chessboard.board[i].length; j++) {
+                count++;
+            }
+        }
 
         // Vous pouvez maintenant vérifier que le tableau a été créé correctement
-        expect(chessboard.children.length).toBe(64); // Assurez-vous que 64 cases ont été ajoutées
+        expect(count).toBe(64); // Assurez-vous que 64 cases ont été ajoutées
     });
 
-    test('should move pieces correctly', () => {
+    test('Should move pieces correctly', () => {
         chessboard.board = [
             [new Pawn(), null, null, null, null, null, null, null],
             [null, null, null, null, null, null, null, null],
@@ -45,32 +65,149 @@ describe('Chessboard', () => {
         expect(chessboard.board[0][0]).toBeNull(); // Vérifie que la case d'origine est maintenant vide
     });
 
-    test('should not move a piece to a square occupied by its own color', () => {
-        chessboard.board[6][0] = new Pawn(); // Place un pion blanc
-        chessboard.board[5][0] = new Pawn(); // Place un pion blanc dans la case cible
+    test('Should not move a piece to a square occupied by its own color', () => {
+        chessboard.board = [
+            [new Pawn('', [0, 0], 'black'), null, null, null, null, null, null, null],
+            [new Rook('', [1, 0], 'black'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
     
-        const originalRow = 6;
-        const originalCol = 0;
-        const newRow = 5;
-        const newCol = 0;
+        chessboard.movePiece(0, 0, 1, 0); // Déplace un pion vers le bas
+        expect(chessboard.board[0][0]).toBeInstanceOf(Pawn);
+        expect(chessboard.board[1][0]).toBeInstanceOf(Rook);
+    });
+
+    test('Should black piece eat white piece', () => {
+        chessboard.board = [
+            [new Rook('', [0, 0], 'black'), null, null, null, null, null, null, null],
+            [new Pawn('', [1, 0], 'white'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
     
-        chessboard.movePiece(originalRow, originalCol, newRow, newCol); // Essaye de déplacer le pion vers une case occupée
+        chessboard.movePiece(0, 0, 1, 0); // Déplace un pion vers le bas
+        expect(chessboard.board[0][0]).toBeNull();
+        expect(chessboard.board[1][0]).toBeInstanceOf(Rook);
+    });
+
+    test('Should white piece eat black piece', () => {
+        chessboard.board = [
+            [new Rook('', [0, 0], 'white'), null, null, null, null, null, null, null],
+            [new Pawn('', [1, 0], 'black'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
     
-        // Vérifiez que le pion n'a pas été déplacé
-        expect(chessboard.board[originalRow][originalCol]).toBeInstanceOf(Pawn);
-        expect(chessboard.board[newRow][newCol]).toBeInstanceOf(Pawn);
+        chessboard.movePiece(0, 0, 1, 0); // Déplace un pion vers le bas
+        expect(chessboard.board[0][0]).toBeNull();
+        expect(chessboard.board[1][0]).toBeInstanceOf(Rook);
     });
     
+    test('Should check if white king is not in check', () => {
+        chessboard.board = [
+            [new King('', [0, 0], 'white'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, new Rook('', [2, 1], 'black'), null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
 
-    test('should check if king is in check', () => {
-        chessboard.movePiece(6, 0, 5, 0); // Déplace le pion en avant
-        chessboard.movePiece(1, 0, 3, 0); // Déplace le pion adverse pour mettre le roi en échec
+        expect(chessboard.isKingInCheck('white')).toBe(false);
+    });
+
+    test('Should check if white king is in check', () => {
+        chessboard.board = [
+            [new King('', [0, 0], 'white'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, new Rook('', [2, 1], 'black'), null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
+
+        chessboard.movePiece(2, 1, 2, 0); // Déplace le pion adverse pour mettre le roi en échec
         expect(chessboard.isKingInCheck('white')).toBe(true);
     });
 
-    test('should promote pawn to queen when reaching the last rank', () => {
-        chessboard.movePiece(6, 0, 0, 0); // Déplace un pion à la dernière rangée
+    test('Should check if black king is not in check', () => {
+        chessboard.board = [
+            [new King('', [0, 0], 'black'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, new Rook('', [2, 1], 'white'), null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
+
+        expect(chessboard.isKingInCheck('black')).toBe(false);
+    });
+
+    test('Should check if black king is in check', () => {
+        chessboard.board = [
+            [new King('', [0, 0], 'black'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, new Rook('', [2, 1], 'white'), null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
+
+        chessboard.movePiece(2, 1, 2, 0); // Déplace le pion adverse pour mettre le roi en échec
+        expect(chessboard.isKingInCheck('black')).toBe(true);
+    });
+
+    test("Should promote pawn white to queen when reaching the last rank", () => {
+        chessboard.board = [
+            [null, null, null, null, null, null, null, null],
+            [new Pawn('', [1, 0], 'white'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
+
+        chessboard.movePiece(1, 0, 0, 0); // Déplace un pion à la dernière rangée
         expect(chessboard.board[0][0]).toBeInstanceOf(Queen);
+    });
+
+    test('Should promote black pawn to queen when reaching the last rank', () => {
+        chessboard.board = [
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [new Pawn('', [6, 0], 'black'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
+
+        chessboard.movePiece(6, 0, 7, 0); // Déplace un pion à la dernière rangée
+        expect(chessboard.board[7][0]).toBeInstanceOf(Queen);
     });
 
 });

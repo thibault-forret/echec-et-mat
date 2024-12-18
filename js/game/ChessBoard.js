@@ -58,7 +58,7 @@ export default class Chessboard
     generateChessBoard() 
     {
         const chessboard = document.querySelector('.chessboard');
-            chessboard.innerHTML = ''; // Vider le contenu précédent
+            // chessboard.innerHTML = ''; // Vider le contenu précédent
 
         // Boucle à travers chaque rangée et colonne du plateau
         for (let row = 0; row < 8; row++) {
@@ -124,9 +124,14 @@ export default class Chessboard
 
         const targetPiece = this.board[newRow][newCol];
 
+        // Vérification de la couleur de la piece ciblée
+        if (targetPiece && targetPiece.color === piece.color) {
+            return;
+        }
+
         // Sauvegarde de l'état initial
         const originalPiece = targetPiece;
-        const originalPosition = piece.emplacement.slice();
+        const originalPosition = piece.emplacement;
 
         // Déplacement temporaire
         this.board[newRow][newCol] = piece;
@@ -307,7 +312,7 @@ export default class Chessboard
     // Vérifie si un mouvement est sûr pour le roi
     isMoveSafe(piece, row, col, newRow, newCol) {
         const originalPiece = this.board[newRow][newCol];
-        const originalPosition = piece.emplacement.slice();
+        const originalPosition = piece.emplacement;
     
         // Simule le mouvement
         this.board[newRow][newCol] = piece;
