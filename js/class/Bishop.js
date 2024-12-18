@@ -11,4 +11,5 @@ export default class Bishop extends Pieces
         ];
         this.maxSteps = 7;
     }
+
 }
