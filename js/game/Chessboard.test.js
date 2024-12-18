@@ -210,4 +210,126 @@ describe('Chessboard', () => {
         expect(chessboard.board[7][0]).toBeInstanceOf(Queen);
     });
 
+
+    
+    test('Should check if black king is not in checkmate', () => {
+        chessboard.board = [
+            [new King('', [0, 0], 'black'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, new Rook('', [2, 1], 'white'), null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
+
+        expect(chessboard.isCheckmate('black')).toBe(false);
+    });
+
+    test('Should check if white king is not in checkmate', () => {
+        chessboard.board = [
+            [new King('', [0, 0], 'white'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, new Rook('', [2, 1], 'black'), null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
+
+        expect(chessboard.isCheckmate('white')).toBe(false);
+    });
+
+    test('Should check if white king is in checkmate', () => {
+        chessboard.board = [
+            [new King('', [0, 0], 'white'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, new Rook('', [2, 1], 'black'), null, null, null, null, null, null],
+            [new Rook('', [3, 0], 'black'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
+
+        expect(chessboard.isCheckmate('white')).toBe(true);
+    });
+
+    test('Should check if black king is in checkmate', () => {
+        chessboard.board = [
+            [new King('', [0, 0], 'black'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, new Rook('', [2, 1], 'white'), null, null, null, null, null, null],
+            [new Rook('', [3, 0], 'white'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
+
+        expect(chessboard.isCheckmate('black')).toBe(true);
+    });
+
+    test('Should check if move piece is safe for the black king (false)', () => {
+        chessboard.board = [
+            [new King('', [0, 0], 'black'), null, null, null, null, null, null, null],
+            [new Rook('', [1, 0], 'black'), null, null, null, null, null, null, null],
+            [new Rook('', [2, 0], 'white'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
+
+        expect(chessboard.isMoveSafe(chessboard.board[1][0], 1, 0, 1, 1)).toBe(false);
+    });
+
+    test('Should check if move piece is safe for the white king (false)', () => {
+        chessboard.board = [
+            [new King('', [0, 0], 'white'), null, null, null, null, null, null, null],
+            [new Rook('', [1, 0], 'white'), null, null, null, null, null, null, null],
+            [new Rook('', [2, 0], 'black'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
+
+        expect(chessboard.isMoveSafe(chessboard.board[1][0], 1, 0, 1, 1)).toBe(false);
+    });
+
+    test('Should check if move piece is safe for the white king (true)', () => {
+        chessboard.board = [
+            [new King('', [0, 0], 'white'), null, null, null, null, null, null, null],
+            [new Rook('', [1, 0], 'white'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
+
+        expect(chessboard.isMoveSafe(chessboard.board[1][0], 1, 0, 1, 1)).toBe(true);
+    });
+
+    test('Should check if move piece is safe for the black king (true)', () => {
+        chessboard.board = [
+            [new King('', [0, 0], 'black'), null, null, null, null, null, null, null],
+            [new Rook('', [1, 0], 'black'), null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+        ];
+
+        expect(chessboard.isMoveSafe(chessboard.board[1][0], 1, 0, 1, 1)).toBe(true);
+    });
+    
 });
