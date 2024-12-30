@@ -88,7 +88,7 @@ export default class Chessboard
     }
 
 
-    movePiece(row, col, newRow, newCol)
+    checkMovePiece(row, col, newRow, newCol)
     {
         if (this.board[row][col].FirstMouve==false) 
             {
