@@ -87,7 +87,7 @@ export default class Chessboard
         }
     }
 
-
+    // verifie les contion de deplacement des pieces et effectue ses dis deplacement 
     movePiece(row, col, newRow, newCol)
     {
         if (this.board[row][col].FirstMouve==false) 
@@ -112,7 +112,7 @@ export default class Chessboard
         
     }
 
-
+    // effectue le deplacement de la piece 
     performMovementPiece(row, col, newRow, newCol){
         const piece = this.board[row][col];
 
@@ -188,7 +188,7 @@ export default class Chessboard
             this.promotePawn(piece, newRow, newCol);
         }
     }
-
+    // permet d'echanger son pion avec une reine si il atteint l'extremiter du plateau
     promotePawn(pawn, row, col) {
         const queenImage = pawn.color === 'white' ? 'img/whitePiece/w-queen.png' : 'img/blackPiece/b-queen.png';
     
