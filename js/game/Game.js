@@ -57,7 +57,7 @@ squares.forEach(square => {
                 closeButton.addEventListener("click", () => {
                     popup.classList.add("hidden");
                     alert("Merci d'avoir joué !");
-                    // Ajoutez ici une redirection ou une autre logique pour quitter
+                    window.location.href = "interface-main.html";
                 });
             }
 
@@ -96,6 +96,12 @@ squares.forEach(square => {
     });
 });
 
+function restartGame(){
+    window.location.reload();
+}
+
+
+
 // Filtre les mouvements qui mettent le roi en échec
 function removeMoveThatPutKingInCheck(piece, row, col, moves)
 {
@@ -131,6 +137,7 @@ function checkIfHighlights(square){
         return false;
     }
 }
+
 
 // Nettoie les surbrillances existantes
 function clearHighlights() {
