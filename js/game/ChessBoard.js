@@ -87,7 +87,7 @@ export default class Chessboard
         }
     }
 
-
+    // verifie les contion de deplacement des pieces et effectue ses dis deplacement 
     movePiece(row, col, newRow, newCol)
     {
         if (this.board[row][col].FirstMouve==false) 
@@ -96,24 +96,24 @@ export default class Chessboard
                 if (this.board[row][col].type=='King')
                     {
                         if (newCol==col+2){
-                            this.deplacePiece(newRow, newCol+1, newRow, newCol-1);
+                            this.performMovementPiece(newRow, newCol+1, newRow, newCol-1);
                         }
                         else if (newCol==col-3){   
-                            this.deplacePiece(newRow, newCol-1, newRow, newCol+1);
+                            this.performMovementPiece(newRow, newCol-1, newRow, newCol+1);
                         }
                         
                     }
                 this.board[row][col].FirstMouve=true;
-                this.deplacePiece(row, col, newRow, newCol);
+                this.performMovementPiece(row, col, newRow, newCol);
             }
         else {
-            this.deplacePiece(row, col, newRow, newCol);
+            this.performMovementPiece(row, col, newRow, newCol);
         }
         
     }
 
-
-    deplacePiece(row, col, newRow, newCol){
+    // effectue le deplacement de la piece 
+    performMovementPiece(row, col, newRow, newCol){
         const piece = this.board[row][col];
 
         // Vérification si le mouvement mettrait le roi en échec
@@ -188,7 +188,7 @@ export default class Chessboard
             this.promotePawn(piece, newRow, newCol);
         }
     }
-
+    // permet d'echanger son pion avec une reine si il atteint l'extremiter du plateau
     promotePawn(pawn, row, col) {
         const queenImage = pawn.color === 'white' ? 'img/whitePiece/w-queen.png' : 'img/blackPiece/b-queen.png';
     
