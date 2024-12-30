@@ -23,7 +23,7 @@ squares.forEach(square => {
             let newCol = parseInt(square.getAttribute('data-col'));
             
             // Déplace la pièce
-            chessboard.checkMovePiece(row, col, newRow, newCol);
+            chessboard.movePiece(row, col, newRow, newCol);
             // Nettoie les surbrillances existantes
             clearHighlights();
 
